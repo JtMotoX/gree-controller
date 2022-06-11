@@ -40,21 +40,25 @@ def temperature_adjust():
 		return {"error": "There was an error getting the device info"}
 
 	# DETERMINE THE CHANGES TO MAKE
-	device = deepcopy(old_device_info)
-	if mode == "off":
-		device.power = False
-	else:
-		if mode == "cool":
-			device.power = True
-			device.mode = 1
-		elif mode == "heat":
-			device.power = True
-			device.mode = 4
+	try:
+		device = deepcopy(old_device_info)
+		if mode == "off":
+			device.power = False
 		else:
-			_LOGGER.error("mode not supported: {}".format(str(mode)))
-			return {"error": "mode not supported: {}".format(str(mode))}
-		device.temperature_units = 1
-		device.target_temperature = old_device_info.target_temperature + int(adjust)
+			if mode == "cool":
+				device.power = True
+				device.mode = 1
+			elif mode == "heat":
+				device.power = True
+				device.mode = 4
+			else:
+				_LOGGER.error("mode not supported: {}".format(str(mode)))
+				return {"error": "mode not supported: {}".format(str(mode))}
+			device.temperature_units = 1
+			device.target_temperature = old_device_info.target_temperature + int(adjust)
+	except Exception as e:
+		_LOGGER.error("{}: {}".format(type(e).__name__,e))
+		return {"error": "There was an error determining the changes"}
 
 	# SEND COMMANDS TO DEVICE
 	try:
