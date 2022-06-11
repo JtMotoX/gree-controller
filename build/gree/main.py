@@ -6,6 +6,7 @@ import jmespath
 import os
 import asyncio
 import logging
+from greeclimate.device import FanSpeed, Mode, TemperatureUnits
 import gree.controller
 from copy import deepcopy
 
@@ -49,14 +50,14 @@ def temperature_adjust():
 		else:
 			if mode == "cool":
 				device.power = True
-				device.mode = 1
+				device.mode = Mode.Cool
 			elif mode == "heat":
 				device.power = True
-				device.mode = 4
+				device.mode = Mode.Heat
 			else:
 				_LOGGER.error("mode not supported: {}".format(str(mode)))
 				return {"error": "mode not supported: {}".format(str(mode))}
-			device.temperature_units = 1
+			device.temperature_units = TemperatureUnits.F
 			device.target_temperature = old_device_info.target_temperature + int(adjust)
 	except Exception as e:
 		_LOGGER.error("{}: {}".format(type(e).__name__,e))
