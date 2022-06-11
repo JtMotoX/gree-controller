@@ -44,6 +44,8 @@ def temperature_adjust():
 		device = deepcopy(old_device_info)
 		if mode == "off":
 			device.power = False
+		elif mode == "toggle-power":
+			device.power = not old_device_info.power
 		else:
 			if mode == "cool":
 				device.power = True
