@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  gree_controller:
+    build: ./build
+    container_name: gree_controller
+    restart: always
+    network_mode: host
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./build/entrypoint.sh:/entrypoint.sh
+      - ./build/gree:/gree
