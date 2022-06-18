@@ -28,6 +28,6 @@ curl -s -k \
 1. Integrate with a remote temperature sensor to automatically adjust the set temperature
 
 ## Keyboard Bindings
-Scripts are found under the [keyboard-bind-scripts](./keyboard-bind-scripts/) directory. My keybindings are setup using [Logi Options+](https://www.logitech.com/en-us/software/logi-options-plus.html)
+Scripts are found under the [keyboard-bind-scripts](./keyboard-bind-scripts/) directory. My keybindings are setup using [AutoHotkey](https://www.autohotkey.com/)
 
-![Keyboard Bindings Screenshot](./keyboard-bind-scripts/screenshot-keybind.jpg)
+You can find instructions on running the ahk script on startup [here](https://www.autohotkey.com/docs/FAQ.htm#Startup).
