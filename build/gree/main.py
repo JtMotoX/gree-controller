@@ -17,10 +17,17 @@ logging.basicConfig(
 )
 _LOGGER = logging.getLogger(__name__)
 
-@app.before_first_request
-def before_first_request():
+# RUN ON STARTUP
+def app_startup():
+	_LOGGER.debug("App starting . . .")
 	global device
-	device = asyncio.run(gree.controller.bind())
+	try:
+		device = asyncio.run(gree.controller.bind())
+	except Exception as e:
+		_LOGGER.error("{}: {}".format(type(e).__name__,e))
+		return {"error": "There was an error binding to device"}
+
+app_startup()
 
 @app.route('/temperature-adjust', methods=['GET', 'POST'])
 def temperature_adjust():
