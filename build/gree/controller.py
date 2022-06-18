@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import logging
 import sys
+import traceback
 
 from greeclimate.device import Device, DeviceInfo
 from greeclimate.discovery import Discovery, Listener
@@ -28,6 +29,7 @@ async def get_info(device):
 		return device
 	except Exception as e:
 		logging.error("{}: {}".format(type(e).__name__,e))
+		logging.debug(traceback.format_exc())
 		return False
 
 async def set_state(device):
