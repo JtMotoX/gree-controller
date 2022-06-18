@@ -39,10 +39,18 @@ def temperature_adjust():
 		adjust = request_data["adjust"]
 	except:
 		return {"error": "You must pass the 'mode', 'temperature_adjust' in the POST request"}
-	
+
 	# GET DEVICE INFO BEFORE MAKING CHANGES
 	try:
-		old_device_info = deepcopy(asyncio.run(gree.controller.get_info(device)))
+		bind_counter = 0
+		old_device_info = False
+		while old_device_info == False and bind_counter < 5:
+			bind_counter += 1
+			old_device_info = deepcopy(asyncio.run(gree.controller.get_info(device)))
+			if old_device_info == False:
+				if bind_counter > 1:
+					_LOGGER.debug("Error getting device info. Going to try binding. (attempt {}".format(bind_counter))
+				device = asyncio.run(gree.controller.bind())
 	except Exception as e:
 		_LOGGER.error("{}: {}".format(type(e).__name__,e))
 		return {"error": "There was an error getting the device info"}
