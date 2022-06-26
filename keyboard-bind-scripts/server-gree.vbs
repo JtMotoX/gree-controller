@@ -19,3 +19,13 @@ If Err Then            'handle errors
 	WScript.Quit 1
 End If
 On Error Goto 0        'disable error handling again
+responseText = objXmlHttpMain.responseText
+
+strPattern = ".*?""new"".*?""temperature"":(\d+).*"
+strReplace = "$1"
+Set oRegExp = New RegExp
+oRegExp.Pattern = strPattern
+strResult = oRegExp.Replace(responseText, strReplace)
+If strResult <> strString Then
+	CreateObject("WScript.Shell").Popup strResult, 1, "Set Temp"
+End If
