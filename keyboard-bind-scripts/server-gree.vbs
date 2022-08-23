@@ -27,5 +27,5 @@ Set oRegExp = New RegExp
 oRegExp.Pattern = strPattern
 strResult = oRegExp.Replace(responseText, strReplace)
 If strResult <> strString Then
-	CreateObject("WScript.Shell").Popup strResult, 1, "Set Temp"
+	CreateObject("WScript.Shell").Popup strResult, 1, "Set Temp", vbSystemModal
 End If
