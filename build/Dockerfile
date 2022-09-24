@@ -17,11 +17,8 @@ FROM base_image as final_image
 
 # SETUP USER
 ARG USER_NAME=appuser
-ARG USER_ID=1001
-ARG GROUP_NAME=appgroup
-ARG GROUP_ID=2001
-RUN addgroup -g ${GROUP_ID} -S ${GROUP_NAME} && \
-	adduser -u ${USER_ID} -S ${USER_NAME} -G ${GROUP_NAME}
+ARG USER_ID=9001
+RUN adduser -u ${USER_ID} -S ${USER_NAME}
 
 # SETUP PYTHON MODULES
 COPY --from=builder_image /venv /venv
@@ -31,7 +28,7 @@ ENV PATH=/venv/bin:$PATH
 COPY --chmod=755 ./gree /gree
 WORKDIR /gree
 
-USER ${USER_NAME}
+USER ${USER_ID}:${USER_ID}
 
 # SETUP ENTRYPOINT
 COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
