@@ -18,7 +18,7 @@ async def bind():
 			logging.debug("Binding device . . .")
 			await device.bind() # Device will auto bind on update if you omit this step
 			return device
-		except CannotConnect:
+		except:
 			logging.error("Unable to bind to gree device: %s", device_info)
 			continue
 
