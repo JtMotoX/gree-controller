@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   gree_controller:
     build: ./build
